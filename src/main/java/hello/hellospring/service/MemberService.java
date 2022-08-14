@@ -5,10 +5,12 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional //save와 같은 변경 동작에 꼭 필요!!
 //@Service
 public class MemberService {
 
@@ -19,7 +21,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository) { //반드시 public 생성자여야 한다.
 
         //현재 MemoryMemberRepository가 레포지터리 구현체로 있다.
         //따라서 memoryMemberRepository라고 따로 지정할 필요없이 memberRepository로 해도 스프링 컨테이너에서 서비스에 주입해준다.
@@ -71,4 +73,4 @@ public class MemberService {
     public Optional<Member> findOne(Long memberId) {
         return memberRepository.findById(memberId);
     }
-    }
+}
